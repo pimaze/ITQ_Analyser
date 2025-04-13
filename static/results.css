@@ -1,0 +1,205 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #141414;
+    color: #e5e5e5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+        transition: background-color 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+header h1 {
+    color: #e50914;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #333;
+    color: #e5e5e5;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button:hover,
+.tab-button.active {
+    background-color: #e50914;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.results-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+        transition: all 0.3s ease;
+}
+
+.result-card {
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    overflow: hidden;
+    cursor: pointer;
+        transition: all 0.3s ease;
+}
+
+.card-header {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.card-header:hover {
+    background-color: #333;
+}
+
+
+.card-header h3 {
+    color: #e5e5e5;
+    font-size: 1.2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+        transition: all 0.3s ease;
+}
+
+.card-header h3 .count {
+    font-size: 0.9rem;
+    color: #777;
+    margin-left: 10px;
+        transition: all 0.3s ease;
+}
+
+.card-header h3 i {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.card-content {
+    padding: 15px 20px;
+    display: none;
+        transition: all 0.3s ease;
+}
+
+.card-content.active {
+    display: block;
+}
+
+.card-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.card-content li {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background-color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+    color: #e5e5e5;
+}
+
+.card-content li span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.card-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #777;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-content p.no-issues {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.card-content p.error-message {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 0;
+    color: #777;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .results-container {
+        max-width: 100%;
+    }
+    .card-header h3 {
+        font-size: 1.1rem;
+    }
+}

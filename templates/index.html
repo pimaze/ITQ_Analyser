@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deliverable Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="netflix-logo"></span>
+                <h1>ITQ Cleaner</h1>
+            </div>
+            <p>Upload your CSV file to analyze deliverables.</p>
+        </header>
+        <main>
+            <form method="post" action="/analyze" enctype="multipart/form-data" id="upload-form">
+                 <div class="loading-overlay" id="loading-overlay">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="form-group">
+                    <div class="file-upload">
+                        <label for="file" class="file-label">
+                            <i class="fas fa-upload"></i>
+                            <span>Choose a CSV file</span>
+                        </label>
+                        <input type="file" id="file" name="file" accept=".csv" required style="display: none;">
+                        <span id="file-name"></span>
+                        <div class="error-message" id="file-error"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-field">
+                        <select id="pod_filter" name="pod_filter">
+                            <option value="" selected>Select POD (optional)</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="SAP">SAP</option>
+                            <option value="Generic">Generic</option>
+                            <option value="BAU">BAU</option>
+                        </select>
+                        <label for="pod_filter">
+                            <i class="fas fa-filter"></i>
+                            <span>POD Name</span>
+                        </label>
+                        <div class="error-message" id="pod-error"></div>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>
+                        <i class="fas fa-filter"></i>
+                        <span>BTO Name</span>
+                    </label>
+                    <div class="bto-filter-container">
+                        <div class="bto-filter-list">
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Allergan Aesthetics" name="bto_filter" value="Allergan Aesthetics">
+                                <label for="bto_Allergan Aesthetics">Allergan Aesthetics</label>
+                            </div>
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Enterprise" name="bto_filter" value="Enterprise">
+                                <label for="bto_Enterprise">Enterprise</label>
+                            </div>
+                             <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_IR" name="bto_filter" value="IR">
+                                <label for="bto_IR">IR</label>
+                            </div>
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Information Security & Risk Management" name="bto_filter" value="Information Security & Risk Management">
+                                <label for="bto_Information Security & Risk Management">Information Security & Risk Management</label>
+                            </div>
+                             <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Infrastructure Services" name="bto_filter" value="Infrastructure Services">
+                                <label for="bto_Infrastructure Services">Infrastructure Services</label>
+                            </div>
+                           <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_International Commercial" name="bto_filter" value="International Commercial">
+                                <label for="bto_International Commercial">International Commercial</label>
+                            </div>
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Operations" name="bto_filter" value="Operations">
+                                <label for="bto_Operations">Operations</label>
+                            </div>
+                           <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Others" name="bto_filter" value="Others">
+                                <label for="bto_Others">Others</label>
+                            </div>
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_Strategy, Architecture & PPPM" name="bto_filter" value="Strategy, Architecture & PPPM">
+                                <label for="bto_Strategy, Architecture & PPPM">Strategy, Architecture & PPPM</label>
+                            </div>
+                            <div class="bto-filter-item">
+                                <input type="checkbox" id="bto_US Commercial" name="bto_filter" value="US Commercial">
+                                <label for="bto_US Commercial">US Commercial</label>
+                            </div>
+                        </div>
+                         <div class="error-message" id="bto-error"></div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="submit-button">Analyze</button>
+                    <button type="button" class="clear-button" id="clear-button">Clear</button>
+                </div>
+            </form>
+        </main>
+        <footer>
+            Made with Joy by Akash Patwa (<a href="mailto:akpatwa@deloitte.com">akpatwa@deloitte.com</a>)
+        </footer>
+    </div>
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileNameSpan = document.getElementById('file-name');
+        const clearButton = document.getElementById('clear-button');
+        const uploadForm = document.getElementById('upload-form');
+         const loadingOverlay = document.getElementById('loading-overlay');
+        const fileError = document.getElementById('file-error');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+                fileError.textContent = "";
+            }
+        });
+
+        clearButton.addEventListener('click', function() {
+            uploadForm.reset();
+            fileNameSpan.textContent = "";
+            fileError.textContent = "";
+        });
+
+        uploadForm.addEventListener('submit', function(event) {
+            if (fileInput.files.length === 0) {
+                event.preventDefault();
+                fileError.textContent = "Please select a file";
+            }
+               loadingOverlay.style.display = 'flex';
+
+
+        });
+
+
+    </script>
+</body>
+</html>
