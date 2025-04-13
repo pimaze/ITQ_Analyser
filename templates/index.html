@@ -12,8 +12,10 @@
 <body>
     <div class="container">
         <header>
-            <!-- Removed logo div -->
-            <h1>ITQ Cleaner</h1>
+            <div class="logo">
+                <span class="netflix-logo"></span>
+                <h1>ITQ Cleaner</h1>
+            </div>
             <p>Upload your CSV file to analyze deliverables.</p>
         </header>
         <main>
@@ -23,40 +25,38 @@
                 </div>
                 <div class="form-group">
                     <div class="file-upload">
-                        <input type="file" id="file" name="file" accept=".csv" required style="display: none;">
                         <label for="file" class="file-label">
                             <i class="fas fa-upload"></i>
-                            <span>Choose a CSV file or drag it here</span>
+                            <span>Choose a CSV file</span>
                         </label>
+                        <input type="file" id="file" name="file" accept=".csv" required style="display: none;">
                         <span id="file-name"></span>
                         <div class="error-message" id="file-error"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-field">
-                         <select id="pod_filter" name="pod_filter" required> <!-- Added required for demonstration, adjust as needed -->
-                            <option value="" disabled selected>Select POD</option> <!-- Changed default option -->
+                        <select id="pod_filter" name="pod_filter">
+                            <option value="" selected>Select POD (optional)</option>
                             <option value="DevOps">DevOps</option>
                             <option value="SAP">SAP</option>
                             <option value="Generic">Generic</option>
                             <option value="BAU">BAU</option>
                         </select>
                         <label for="pod_filter">
-                             <i class="fas fa-filter"></i>
+                            <i class="fas fa-filter"></i>
                             <span>POD Name</span>
                         </label>
-                        <!-- Placeholder for potential error message -->
                         <div class="error-message" id="pod-error"></div>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label for="bto_filter_label"> <!-- Added ID for label -->
+                    <label>
                         <i class="fas fa-filter"></i>
-                        <span>BTO Name (Optional)</span> <!-- Clarified optionality -->
+                        <span>BTO Name</span>
                     </label>
-                    <div class="bto-filter-container" id="bto_filter_label"> <!-- Link label to container -->
+                    <div class="bto-filter-container">
                         <div class="bto-filter-list">
-                            <!-- BTO Checkboxes remain the same -->
                             <div class="bto-filter-item">
                                 <input type="checkbox" id="bto_Allergan Aesthetics" name="bto_filter" value="Allergan Aesthetics">
                                 <label for="bto_Allergan Aesthetics">Allergan Aesthetics</label>
@@ -113,84 +113,35 @@
     </div>
     <script>
         const fileInput = document.getElementById('file');
-        const fileLabel = document.querySelector('.file-label span'); // Target the span inside the label
         const fileNameSpan = document.getElementById('file-name');
         const clearButton = document.getElementById('clear-button');
         const uploadForm = document.getElementById('upload-form');
-        const loadingOverlay = document.getElementById('loading-overlay');
+         const loadingOverlay = document.getElementById('loading-overlay');
         const fileError = document.getElementById('file-error');
-        const originalFileLabelText = fileLabel.textContent; // Store original text
 
         fileInput.addEventListener('change', function() {
             if (fileInput.files.length > 0) {
-                fileNameSpan.textContent = "Selected file: " + fileInput.files[0].name;
-                fileLabel.textContent = "File Selected"; // Change label text
+                fileNameSpan.textContent = fileInput.files[0].name;
                 fileError.textContent = "";
-            } else {
-                fileNameSpan.textContent = "";
-                fileLabel.textContent = originalFileLabelText; // Reset label text
             }
         });
 
         clearButton.addEventListener('click', function() {
             uploadForm.reset();
             fileNameSpan.textContent = "";
-            fileLabel.textContent = originalFileLabelText; // Reset label text
             fileError.textContent = "";
-            // Reset select field visual state if needed (might require more specific handling)
-            document.getElementById('pod_filter').value = "";
-            // Clear BTO checkboxes
-            document.querySelectorAll('input[name="bto_filter"]:checked').forEach((checkbox) => {
-                checkbox.checked = false;
-            });
         });
 
         uploadForm.addEventListener('submit', function(event) {
-            let isValid = true;
-            // Basic file validation
             if (fileInput.files.length === 0) {
-                event.preventDefault(); // Stop submission
-                fileError.textContent = "Please select a CSV file.";
-                isValid = false;
-            } else {
-                fileError.textContent = ""; // Clear error if file is selected
+                event.preventDefault();
+                fileError.textContent = "Please select a file";
             }
+               loadingOverlay.style.display = 'flex';
 
-            // Add more validation if needed (e.g., for POD select)
 
-            if (isValid) {
-               loadingOverlay.style.display = 'flex'; // Show loading overlay only if form is valid
-            } else {
-                loadingOverlay.style.display = 'none'; // Ensure loading is hidden if validation fails
-            }
         });
 
-        // Optional: Add drag and drop functionality for file input
-        const fileLabelElement = document.querySelector('.file-label');
-
-        fileLabelElement.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            fileLabelElement.style.borderColor = '#1976D2'; // Highlight border on drag over
-            fileLabelElement.style.backgroundColor = '#F5F5F5';
-        });
-
-        fileLabelElement.addEventListener('dragleave', () => {
-            fileLabelElement.style.borderColor = '#BDBDBD'; // Reset border
-             fileLabelElement.style.backgroundColor = '#FAFAFA';
-        });
-
-        fileLabelElement.addEventListener('drop', (event) => {
-            event.preventDefault();
-            fileLabelElement.style.borderColor = '#BDBDBD';
-            fileLabelElement.style.backgroundColor = '#FAFAFA';
-
-            if (event.dataTransfer.files.length > 0) {
-                fileInput.files = event.dataTransfer.files; // Assign dropped files to input
-                // Trigger the change event manually to update UI
-                const changeEvent = new Event('change');
-                fileInput.dispatchEvent(changeEvent);
-            }
-        });
 
     </script>
 </body>
