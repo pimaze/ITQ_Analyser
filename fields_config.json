@@ -1,0 +1,4 @@
+{
+    "mandatory_fields": ["Deliverable Name", "Time Spent", "Deliverable Reviewer"],
+    "optional_fields": ["Location of Approved Deliverable"]
+}

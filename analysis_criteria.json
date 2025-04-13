@@ -1,0 +1,11 @@
+{
+    "missing_sla": {"condition": "df['SLA'].isnull()", "message": "Deliverables with missing SLA"},
+    "missing_review_cycles": {"condition": "df['# of Review Cycles'].isnull()", "message": "Deliverables with missing '# of Review Cycles'"},
+    "additional_review_cycles_missing_reason": {"condition": "(df['# of Review Cycles'] >= 3) & (df['Reason for Additional Review Cycles'].isnull())", "message": "Deliverables with 3+ review cycles and missing 'Reason for Additional Review Cycles'"},
+    "invalid_approval_date": {"condition": "(df['Status'] == 'Approved') & (df['Deliverable Approval Date'].isnull())", "message": "Deliverables with 'Approved' status and missing 'Deliverable Approval Date'"},
+    "invalid_status": {"condition": "(df['Deliverable Approval Date'].notnull()) & (~df['Status'].isin(['Approved', 'Cancelled']))", "message": "Deliverables with populated 'Deliverable Approval Date' and status different from 'Approved' or 'Cancelled'"},
+    "missing_review_received_date": {"condition": "df['Date Deliverable is Received for Review'].isnull()", "message": "Deliverables with missing 'Date Deliverable is Received for Review'"},
+    "invalid_approval_date_order": {"condition": "(df['Date Deliverable is Received for Review'].notnull()) & (df['Deliverable Approval Date'].notnull()) & (df['Deliverable Approval Date'] < df['Date Deliverable is Received for Review'])", "message": "Deliverables with 'Deliverable Approval Date' before 'Date Deliverable is Received for Review'"},
+    "inconsistent_quick_turnaround_reason": {"condition": "((df['Quick Turnaround Request'].notnull()) & (df['Reason for Quick Turn Around Request'].isnull())) | ((df['Quick Turnaround Request'].isnull()) & (df['Reason for Quick Turn Around Request'].notnull()))", "message": "Deliverables with inconsistent 'Quick Turnaround Request' and 'Reason for Quick Turn Around Request'"},
+    "update_required": {"condition": "df['Status'].isin(['In Review', 'On Hold', 'Ready for Approval', 'Ready for Review', 'Update Required']) & (df['Deliverable Approval Date'].isnull())", "message": "Deliverables that require an update"}
+}

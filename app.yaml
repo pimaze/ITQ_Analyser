@@ -1,0 +1,5 @@
+runtime: python311 # Or choose another supported Python 3 version like python310, python312
+entrypoint: gunicorn -b :$PORT app:app # IMPORTANT: Uses app:app because your file is app.py
+
+# Optional: uncomment the line below if you need more memory due to pandas
+# instance_class: F2
