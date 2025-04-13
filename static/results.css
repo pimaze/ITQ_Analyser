@@ -1,71 +1,111 @@
+\
+/* General Body Styles - Google Material Theme */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #141414;
-    color: #e5e5e5;
+    background-color: #FAFAFA; /* Light gray background */
+    color: #212121; /* Dark gray text */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-        transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .container {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
+/* Header Styles */
 header {
     text-align: center;
     margin-bottom: 30px;
     transition: all 0.3s ease;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space out title and button */
+    align-items: center; /* Vertically align */
+    padding-bottom: 15px; /* Add padding below header */
+    border-bottom: 1px solid #E0E0E0; /* Subtle separator */
 }
 
 header h1 {
-    color: #e50914;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
+    color: #1976D2; /* Google Blue */
+    font-size: 2.0rem; /* Adjusted size */
+    margin: 0; /* Remove default margin */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
 }
 
+/* Export Button Style (Matches other buttons) */
+.export-button {
+    padding: 8px 20px; /* Slightly smaller padding */
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: #4CAF50; /* Green for export action */
+    color: white;
+}
+
+.export-button:hover {
+    background-color: #388E3C; /* Darker green */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+/* Main Content Area */
 main {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 20px 0; /* Adjust padding */
 }
 
+/* Tabs Styles */
 .tabs {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #E0E0E0; /* Separator line */
     transition: all 0.3s ease;
 }
 
 .tab-button {
-    padding: 10px 15px;
+    padding: 12px 18px;
     border: none;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-bottom: 2px solid transparent; /* Underline effect */
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    background-color: #333;
-    color: #e5e5e5;
-    margin: 5px;
-    transition: background-color 0.3s ease;
+    background-color: transparent;
+    color: #757575; /* Medium gray */
+    margin: 0 5px; /* Adjust spacing */
+    transition: color 0.3s ease, border-color 0.3s ease;
+    text-transform: uppercase;
 }
 
-.tab-button:hover,
+.tab-button:hover {
+    color: #1976D2; /* Blue on hover */
+}
+
 .tab-button.active {
-    background-color: #e50914;
+    color: #1976D2; /* Blue for active tab */
+    border-bottom-color: #1976D2; /* Blue underline */
 }
 
+/* Tab Content */
 .tab-content {
     display: none;
     width: 100%;
@@ -76,22 +116,29 @@ main {
     display: block;
 }
 
+/* Results Container */
 .results-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1000px; /* Can adjust */
     display: flex;
     flex-direction: column;
-        transition: all 0.3s ease;
+    gap: 20px; /* Space between cards */
+    transition: all 0.3s ease;
 }
 
+/* Result Card Styles - Material Card */
 .result-card {
-    background-color: #222;
+    background-color: #FFFFFF; /* White background */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.08); /* Material elevation */
+    margin-bottom: 0; /* Remove bottom margin, use gap instead */
     overflow: hidden;
     cursor: pointer;
-        transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.1); /* Increased elevation on hover */
 }
 
 .card-header {
@@ -100,38 +147,79 @@ main {
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.3s ease;
+    border-bottom: 1px solid #EEEEEE; /* Light border if content is open */
 }
 
+.result-card .card-content.active + .card-header {
+     border-bottom: none; /* Remove border if content is closed */
+}
+
+
 .card-header:hover {
-    background-color: #333;
+    background-color: #F5F5F5; /* Slight gray tint on hover */
 }
 
 
 .card-header h3 {
-    color: #e5e5e5;
-    font-size: 1.2rem;
+    color: #212121; /* Dark gray text */
+    font-size: 1.1rem; /* Adjusted size */
+    font-weight: 500;
     margin: 0;
     display: flex;
     align-items: center;
-        transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    flex-grow: 1; /* Allow title to take available space */
 }
 
 .card-header h3 .count {
     font-size: 0.9rem;
-    color: #777;
+    color: #757575; /* Medium gray */
     margin-left: 10px;
-        transition: all 0.3s ease;
+    font-weight: 400;
+    transition: all 0.3s ease;
 }
 
-.card-header h3 i {
-    margin-right: 10px;
+/* Card Icons */
+.card-header h3 .fas { /* General icon styling */
+    margin-right: 12px;
+    color: #1976D2; /* Blue icons */
+    font-size: 1.2em;
+}
+
+/* Specific Icon Colors (Optional) */
+.card-header h3 .fa-exclamation-circle, /* Mandatory */
+.card-header h3 .fa-times-circle, /* Invalid Status */
+.card-header h3 .fa-calendar-times, /* Invalid Date */
+.card-header h3 .fa-exclamation-triangle /* Inconsistent Quick Turnaround */
+{ color: #D32F2F; } /* Red for errors/warnings */
+
+.card-header h3 .fa-question-circle, /* Optional */
+.card-header h3 .fa-comment-dots /* Additional Reason */
+{ color: #FFA000; } /* Amber for optional/missing info */
+
+.card-header h3 .fa-bell /* Update Required */
+{ color: #1976D2; } /* Blue for info */
+
+/* Chevron Icon */
+.card-header .fa-chevron-down,
+.card-header .fa-chevron-up {
+    margin-left: 15px; /* Space before chevron */
+    color: #757575; /* Gray chevron */
     transition: transform 0.3s ease;
+    font-size: 1em; /* Reset size */
 }
 
+.card-content.active + .card-header .fa-chevron-down {
+     transform: rotate(180deg);
+}
+
+/* Card Content Area */
 .card-content {
-    padding: 15px 20px;
+    padding: 20px 20px 20px 50px; /* Indent content */
     display: none;
-        transition: all 0.3s ease;
+    background-color: #FAFAFA; /* Slightly different background for content */
+    transition: all 0.3s ease;
+    border-top: 1px solid #EEEEEE;
 }
 
 .card-content.active {
@@ -141,65 +229,114 @@ main {
 .card-content ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     margin-bottom: 15px;
 }
 
 .card-content li {
-    padding: 12px;
+    padding: 10px;
     border-radius: 4px;
     margin-bottom: 8px;
-    background-color: #333;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background-color: #FFFFFF; /* White background for list items */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.3s ease;
-    color: #e5e5e5;
+    color: #424242; /* Darker gray */
+    font-size: 0.95rem;
 }
 
 .card-content li span {
-    font-weight: bold;
-    margin-right: 5px;
+    font-weight: 500; /* Medium weight for deliverable name */
+    margin-right: 8px;
+    color: #1976D2; /* Blue for emphasis */
 }
 
+/* Paragraphs within card content */
 .card-content p {
     margin-bottom: 15px;
     line-height: 1.6;
-    color: #777;
-    text-align: center;
+    color: #757575; /* Medium gray */
+    text-align: left; /* Align text left */
     transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .card-content p.no-issues {
-    color: #28a745;
-    font-weight: bold;
+    color: #388E3C; /* Darker Green */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 }
+.card-content p.no-issues i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
 
 .card-content p.error-message {
-    color: #dc3545;
-    font-weight: bold;
+    color: #D32F2F; /* Darker Red */
+    font-weight: 500;
 }
 
+/* Footer Styles (reuse from style.css if identical, or redefine) */
 footer {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
     padding: 20px 0;
-    color: #777;
+    color: #9E9E9E;
     font-size: 0.9em;
     transition: all 0.3s ease;
+    border-top: 1px solid #E0E0E0; /* Separator */
 }
 
+footer a {
+    color: #1976D2;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
 
-
-
+/* --- Media Queries --- */
 @media (max-width: 768px) {
     .container {
-        padding: 10px;
+        padding: 15px;
+        margin: 20px auto;
     }
+    header {
+        flex-direction: column; /* Stack header items */
+        align-items: center;
+        text-align: center;
+    }
+    header h1 {
+        margin-bottom: 10px; /* Add space below title */
+        font-size: 1.8rem;
+    }
+    .export-button {
+        margin-top: 10px; /* Space above button */
+    }
+    .tabs {
+        justify-content: flex-start; /* Align tabs left */
+        overflow-x: auto; /* Allow horizontal scrolling for tabs */
+        white-space: nowrap;
+        padding-bottom: 5px; /* Reduce padding */
+    }
+     .tab-button {
+        flex-shrink: 0; /* Prevent tabs from shrinking */
+     }
     .results-container {
         max-width: 100%;
+        gap: 15px;
     }
     .card-header h3 {
-        font-size: 1.1rem;
+        font-size: 1.0rem;
+    }
+     .card-content {
+        padding: 15px 15px 15px 35px; /* Adjust padding */
+    }
+    .card-content li {
+        font-size: 0.9rem;
     }
 }

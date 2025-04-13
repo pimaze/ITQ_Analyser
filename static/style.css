@@ -1,9 +1,11 @@
+\
+/* General Body Styles - Google Material Theme */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #141414;
-    color: #e5e5e5;
+    background-color: #FAFAFA; /* Light gray background */
+    color: #212121; /* Dark gray text */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -13,8 +15,8 @@ body {
 
 .container {
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 800px; /* Keep max-width or adjust as needed */
+    margin: 40px auto; /* Add more margin */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -22,84 +24,67 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Header Styles */
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Increased margin */
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: all 0.3s ease;
 }
 
+/* Remove Netflix Logo */
 .logo {
-    display: flex;
+    /* display: flex; */ /* Remove or adjust as needed */
     align-items: center;
     margin-bottom: 10px;
-    transition: all 0.3s ease;
-}
-
-.netflix-logo {
-    background-color: #e50914;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    display: inline-block;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.netflix-logo::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #fff;
     transition: all 0.3s ease;
 }
 
 header h1 {
-    color: #e50914;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-family: 'Montserrat', sans-serif;
+    color: #1976D2; /* Google Blue */
+    font-size: 2.2rem; /* Slightly adjusted size */
+    margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif; /* Keep font or change to Roboto Medium/Bold */
+    font-weight: 500;
     transition: all 0.3s ease;
 }
 
 header p {
-    color: #b3b3b3;
-    font-size: 1.1rem;
+    color: #757575; /* Medium gray text */
+    font-size: 1rem;
     transition: all 0.3s ease;
+    margin-bottom: 20px; /* Added margin below paragraph */
 }
 
+/* Main Content Area */
 main {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align form to top */
     transition: all 0.3s ease;
 }
 
+/* Form Styles - Material Card */
 form {
     width: 100%;
-    background-color: #222;
+    background-color: #FFFFFF; /* White background */
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 8px; /* Material Design standard */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(0, 0, 0, 0.08); /* Material elevation */
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px; /* Increased spacing */
     transition: all 0.3s ease;
 }
 
+/* --- Input Field Styles (Placeholder for now, will refine) --- */
 .input-field {
     position: relative;
     margin-bottom: 10px;
@@ -109,61 +94,77 @@ form {
 .input-field input,
 .input-field select {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #444;
+    padding: 12px 12px 12px 40px; /* Adjust padding for icon */
+    border: 1px solid #BDBDBD; /* Lighter border */
     border-radius: 4px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     outline: none;
     box-sizing: border-box;
-    background-color: #333;
-    color: #fff;
-    appearance: none; /* Remove default dropdown arrow */
-    -webkit-appearance: none; /* For Safari */
-    -moz-appearance: none; /* For Firefox */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-color: #FAFAFA; /* Slightly off-white */
+    color: #212121;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23757575" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Gray arrow */
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
 }
 
 .input-field select::-ms-expand {
-    display: none; /* For IE */
+    display: none;
 }
-
 
 .input-field input:focus,
 .input-field select:focus {
-    border-color: #e50914;
+    border-color: #1976D2; /* Google Blue on focus */
+    box-shadow: 0 0 0 1px #1976D2; /* Focus ring */
 }
 
 .input-field label {
     position: absolute;
     top: 50%;
-    left: 12px;
+    left: 40px; /* Position after icon */
     transform: translateY(-50%);
-    color: #777;
+    color: #757575; /* Medium gray */
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease-out;
     font-size: 1rem;
     padding: 0 5px;
-    background-color: #222;
+    background-color: transparent; /* Should adapt later */
 }
 
+/* Floating Label Effect - Needs JS or :placeholder-shown pseudo-class */
 .input-field input:focus + label,
 .input-field input:not(:placeholder-shown) + label,
 .input-field select:focus + label,
-.input-field select:not(:placeholder-shown) + label {
+.input-field select:not([value='']):valid + label { /* Check for selected value */
     top: -8px;
-    font-size: 0.8rem;
-    color: #e50914;
+    left: 10px; /* Adjust left position for floated label */
+    font-size: 0.75rem;
+    color: #1976D2; /* Google Blue when floated */
     padding: 0 5px;
-    transition: all 0.3s ease;
+    background-color: #FFFFFF; /* Background to cover border */
+    transition: all 0.2s ease-out;
 }
+
 
 .input-field label i {
-    margin-right: 5px;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    transition: color 0.3s ease;
 }
 
+.input-field input:focus ~ label i,
+.input-field select:focus ~ label i {
+ color: #1976D2; /* Blue icon on focus */
+}
+
+
+/* --- File Upload Styles --- */
 .file-upload {
     position: relative;
     transition: all 0.3s ease;
@@ -173,35 +174,40 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
-    border: 2px dashed #444;
+    padding: 15px; /* Increased padding */
+    border: 2px dashed #BDBDBD; /* Lighter dashed border */
     border-radius: 4px;
     text-align: center;
     cursor: pointer;
-    color: #777;
-    transition: border-color 0.3s ease;
+    color: #757575;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
     box-sizing: border-box;
     width: 100%;
     margin-bottom: 10px;
+    background-color: #FAFAFA;
 }
 
 .file-label:hover {
-    border-color: #e50914;
+    border-color: #1976D2; /* Blue border on hover */
+    background-color: #F5F5F5; /* Slightly darker gray */
 }
 
 .file-label i {
-    margin-right: 5px;
+    margin-right: 8px; /* Increased spacing */
+    color: #1976D2; /* Blue icon */
 }
 
 #file-name {
     display: block;
-    margin-top: 5px;
-    font-style: italic;
-    color: #777;
+    margin-top: 8px;
+    font-style: normal; /* Regular style */
+    color: #424242; /* Darker gray */
     text-align: center;
     transition: all 0.3s ease;
+    font-size: 0.9em;
 }
 
+/* --- Button Styles --- */
 .button-group {
     display: flex;
     justify-content: flex-end;
@@ -211,117 +217,151 @@ form {
 
 .submit-button,
 .clear-button {
-    padding: 12px 20px;
+    padding: 10px 24px; /* Adjusted padding */
     border: none;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 4px; /* Standard border-radius */
+    font-size: 0.9rem; /* Standard button font size */
+    font-weight: 500; /* Medium weight */
+    text-transform: uppercase; /* Uppercase text */
     cursor: pointer;
     margin-left: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
+.submit-button:hover,
+.clear-button:hover {
+     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+
 .submit-button {
-    background-color: #e50914;
+    background-color: #1976D2; /* Google Blue */
     color: white;
 }
 
 .submit-button:hover {
-    background-color: #b20710;
+    background-color: #1565C0; /* Darker blue */
 }
 
 .clear-button {
-    background-color: #444;
-    color: #fff;
+    background-color: #E0E0E0; /* Light Gray */
+    color: #424242; /* Dark Gray text */
 }
 
 .clear-button:hover {
-    background-color: #555;
+    background-color: #BDBDBD; /* Darker Gray */
 }
 
+/* --- Footer Styles --- */
 footer {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px; /* Increased margin */
     padding: 20px 0;
-    color: #777;
+    color: #9E9E9E; /* Lighter gray */
     font-size: 0.9em;
     transition: all 0.3s ease;
 }
 
+footer a {
+    color: #1976D2; /* Blue link */
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Error Message Styles --- */
 .error-message {
-    color: #e50914;
-    font-size: 0.9em;
-    margin-top: 5px;
+    color: #B00020; /* Material Design error red */
+    font-size: 0.8em;
+    margin-top: 4px; /* Reduced margin */
     transition: all 0.3s ease;
+    text-align: left; /* Align errors to the left */
+    padding-left: 10px;
 }
 
+/* --- BTO Filter Styles --- */
 .bto-filter-container {
-    border: 1px solid #444;
+    border: 1px solid #BDBDBD; /* Lighter border */
     border-radius: 4px;
-    padding: 10px;
+    padding: 15px; /* Increased padding */
     margin-bottom: 10px;
     transition: all 0.3s ease;
+    background-color: #FAFAFA;
 }
 
 .bto-filter-list {
-    display: flex;
-    flex-direction: column;
+    display: grid; /* Use grid for better layout */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+    gap: 10px; /* Spacing between items */
 }
 
 .bto-filter-item {
-    margin-bottom: 5px;
+    margin-bottom: 0; /* Remove bottom margin, use gap instead */
     transition: all 0.3s ease;
+    display: flex; /* Align checkbox and label */
+    align-items: center;
 }
 
 
 .bto-filter-item input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 8px; /* Spacing between checkbox and label */
     vertical-align: middle;
+    accent-color: #1976D2; /* Style checkbox color */
+    cursor: pointer;
+    width: 16px; /* Explicit size */
+    height: 16px; /* Explicit size */
 }
 
 .bto-filter-item label {
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
-    color: #fff;
+    color: #424242; /* Darker text for labels */
+    font-size: 0.95rem; /* Slightly smaller font */
 }
 
-/* Style for the BTO label to match POD label */
-.form-group > label {
-    color: #777;
+/* Style for the BTO section label */
+.form-group > label { /* Target the label directly above the container */
+    color: #757575; /* Medium gray */
     font-size: 1rem;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* Spacing below label */
+    font-weight: 500; /* Slightly bolder */
 }
 
 .form-group > label i {
-    margin-right: 5px;
-    color: #777;
+    margin-right: 8px;
+    color: #757575;
     font-size: 1rem;
 }
 
+/* --- Loading Overlay Styles --- */
 .loading-overlay {
-    position: absolute;
+    position: fixed; /* Cover entire viewport */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    background-color: rgba(255, 255, 255, 0.8); /* White overlay */
+    display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
+/* Google-like Spinner */
 .loading-spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #e50914;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #1976D2; /* Blue */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -329,18 +369,37 @@ footer {
     100% { transform: rotate(360deg); }
 }
 
+/* --- Media Queries for Responsiveness --- */
 @media (max-width: 768px) {
     .container {
-        padding: 10px;
+        padding: 15px;
+        margin: 20px auto;
     }
     form {
         padding: 20px;
     }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    header p {
+        font-size: 0.9rem;
+    }
     .input-field input,
+    .input-field select,
     .file-label,
     .submit-button,
-    .clear-button,
-    .input-field select {
+    .clear-button {
         font-size: 0.9rem;
+    }
+    .bto-filter-list {
+         grid-template-columns: 1fr; /* Stack BTO items on smaller screens */
+    }
+    .button-group {
+        flex-direction: column; /* Stack buttons */
+    }
+    .submit-button, .clear-button {
+        margin-left: 0;
+        margin-top: 10px; /* Add space between stacked buttons */
+        width: 100%; /* Full width buttons */
     }
 }

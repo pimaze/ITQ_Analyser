@@ -6,165 +6,148 @@
     <title>Analysis Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Analysis Results</h1>
+            <!-- Added Export Button -->
+            <button class="export-button" id="export-button">Export to Excel</button>
         </header>
         <main>
             <div class="tabs">
+                <!-- Tabs remain structurally the same, CSS handles the look -->
                 <button class="tab-button active" data-tab="all">All Issues</button>
                 <button class="tab-button" data-tab="missing_mandatory_fields">Mandatory Fields</button>
                 <button class="tab-button" data-tab="missing_optional_fields">Optional Fields</button>
                 <button class="tab-button" data-tab="missing_sla">SLA</button>
                 <button class="tab-button" data-tab="missing_review_cycles">Review Cycles</button>
                 <button class="tab-button" data-tab="additional_review_cycles_missing_reason">Additional Review Reason</button>
-                 <button class="tab-button" data-tab="invalid_approval_date">Invalid Approval Date</button>
-                 <button class="tab-button" data-tab="invalid_status">Invalid Status</button>
-                  <button class="tab-button" data-tab="missing_review_received_date">Missing Review Date</button>
-                   <button class="tab-button" data-tab="invalid_approval_date_order">Invalid Date Order</button>
-                 <button class="tab-button" data-tab="inconsistent_quick_turnaround_reason">Inconsistent Quick Turnaround</button>
-                  <button class="tab-button" data-tab="update_required">Update Required</button>
+                <button class="tab-button" data-tab="invalid_approval_date">Invalid Approval Date</button>
+                <button class="tab-button" data-tab="invalid_status">Invalid Status</button>
+                <button class="tab-button" data-tab="missing_review_received_date">Missing Review Date</button>
+                <button class="tab-button" data-tab="invalid_approval_date_order">Invalid Date Order</button>
+                <button class="tab-button" data-tab="inconsistent_quick_turnaround_reason">Inconsistent Quick Turnaround</button>
+                <button class="tab-button" data-tab="update_required">Update Required</button>
             </div>
+
+             <!-- Tab Content for "All Issues" -->
              <div class="tab-content active" id="all">
                 <div class="results-container">
-                    {% for key, result in analysis_results.items() %}
-                        <div class="result-card" onclick="toggleDetails('{{ key }}-all')">
-                            <div class="card-header">
-                                <h3>
-                                    {% if key == "missing_mandatory_fields" %}
-                                        <i class="fas fa-exclamation-circle"></i> Mandatory Fields Missing
-                                    {% elif key == "missing_optional_fields" %}
-                                         <i class="fas fa-question-circle"></i> Optional Fields Missing
-                                    {% elif key == "missing_sla" %}
-                                        <i class="fas fa-file-contract"></i> Missing SLA
-                                    {% elif key == "missing_review_cycles" %}
-                                        <i class="fas fa-sync-alt"></i> Missing Review Cycles
-                                    {% elif key == "additional_review_cycles_missing_reason" %}
-                                         <i class="fas fa-comment-dots"></i> Additional Review Reason
-                                    {% elif key == "invalid_approval_date" %}
-                                        <i class="fas fa-calendar-times"></i> Invalid Approval Date
-                                    {% elif key == "invalid_status" %}
-                                        <i class="fas fa-times-circle"></i> Invalid Status
-                                    {% elif key == "missing_review_received_date" %}
-                                        <i class="fas fa-calendar-plus"></i> Missing Review Date
-                                    {% elif key == "invalid_approval_date_order" %}
-                                        <i class="fas fa-sort-amount-down"></i> Invalid Date Order
-                                     {% elif key == "inconsistent_quick_turnaround_reason" %}
-                                         <i class="fas fa-exclamation-triangle"></i> Inconsistent Quick Turnaround
-                                    {% elif key == "update_required" %}
-                                        <i class="fas fa-bell"></i> Update Required
-                                    {% else %}
-                                        {{ result.message }}
-                                    {% endif %}
-                                       <span class="count">({{ result.deliverables|length }} found)</span>
-                                     <i class="fas fa-chevron-down"></i>
-                                </h3>
-                            </div>
-                             <div class="card-content" id="{{ key }}-all">
-                                    {% if key == "missing_mandatory_fields" or key == "missing_optional_fields" %}
+                    {% if analysis_results %}
+                        {% for key, result in analysis_results.items() %}
+                            {% if result.deliverables %}
+                                <div class="result-card">
+                                    <div class="card-header" onclick="toggleDetails('{{ key }}-all')">
+                                        <h3>
+                                            <!-- Icons and Titles based on key -->
+                                            {% if key == "missing_mandatory_fields" %}<i class="fas fa-exclamation-circle"></i> Mandatory Fields Missing
+                                            {% elif key == "missing_optional_fields" %}<i class="fas fa-question-circle"></i> Optional Fields Missing
+                                            {% elif key == "missing_sla" %}<i class="fas fa-file-contract"></i> Missing SLA
+                                            {% elif key == "missing_review_cycles" %}<i class="fas fa-sync-alt"></i> Missing Review Cycles
+                                            {% elif key == "additional_review_cycles_missing_reason" %}<i class="fas fa-comment-dots"></i> Additional Review Reason
+                                            {% elif key == "invalid_approval_date" %}<i class="fas fa-calendar-times"></i> Invalid Approval Date
+                                            {% elif key == "invalid_status" %}<i class="fas fa-times-circle"></i> Invalid Status
+                                            {% elif key == "missing_review_received_date" %}<i class="fas fa-calendar-plus"></i> Missing Review Date
+                                            {% elif key == "invalid_approval_date_order" %}<i class="fas fa-sort-amount-down"></i> Invalid Date Order
+                                            {% elif key == "inconsistent_quick_turnaround_reason" %}<i class="fas fa-exclamation-triangle"></i> Inconsistent Quick Turnaround
+                                            {% elif key == "update_required" %}<i class="fas fa-bell"></i> Update Required
+                                            {% else %}{{ key|replace('_', ' ')|title }}
+                                            {% endif %}
+                                            <span class="count">({{ result.deliverables|length }} found)</span>
+                                        </h3>
+                                        <i class="fas fa-chevron-down"></i> <!-- Chevron is now part of the header for click handling -->
+                                    </div>
+                                     <div class="card-content" id="{{ key }}-all">
                                         {% if result.deliverables %}
                                             <ul>
-                                                {% for deliverable, missing_fields in result.deliverables.items() %}
-                                                     <li>
-                                                        <span>{{ deliverable }}:</span>
-                                                         Missing fields - {{ missing_fields|join(', ') }}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% else %}
-                                             <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
-                                        {% endif %}
-                                    {% else %}
-                                        {% if result.deliverables %}
-                                            <ul>
-                                                {% for name in result.deliverables %}
-                                                    <li>{{ name }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% else %}
-                                             <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
-                                        {% endif %}
-                                    {% endif %}
-                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% for key, result in analysis_results.items() %}
-                    <div class="tab-content" id="{{ key }}"> <div class="results-container">
-                               <div class="result-card" onclick="toggleDetails('{{ key }}-{{key}}')">
-                                <div class="card-header">
-                                    <h3>
-                                        {% if key == "missing_mandatory_fields" %}
-                                            <i class="fas fa-exclamation-circle"></i> Mandatory Fields Missing
-                                        {% elif key == "missing_optional_fields" %}
-                                             <i class="fas fa-question-circle"></i> Optional Fields Missing
-                                        {% elif key == "missing_sla" %}
-                                            <i class="fas fa-file-contract"></i> Missing SLA
-                                        {% elif key == "missing_review_cycles" %}
-                                            <i class="fas fa-sync-alt"></i> Missing Review Cycles
-                                        {% elif key == "additional_review_cycles_missing_reason" %}
-                                             <i class="fas fa-comment-dots"></i> Additional Review Reason
-                                        {% elif key == "invalid_approval_date" %}
-                                            <i class="fas fa-calendar-times"></i> Invalid Approval Date
-                                        {% elif key == "invalid_status" %}
-                                            <i class="fas fa-times-circle"></i> Invalid Status
-                                        {% elif key == "missing_review_received_date" %}
-                                            <i class="fas fa-calendar-plus"></i> Missing Review Date
-                                        {% elif key == "invalid_approval_date_order" %}
-                                            <i class="fas fa-sort-amount-down"></i> Invalid Date Order
-                                         {% elif key == "inconsistent_quick_turnaround_reason" %}
-                                             <i class="fas fa-exclamation-triangle"></i> Inconsistent Quick Turnaround
-                                        {% elif key == "update_required" %}
-                                            <i class="fas fa-bell"></i> Update Required
-                                        {% else %}
-                                            {{ result.message }}
-                                        {% endif %}
-                                           <span class="count">({{ result.deliverables|length }} found)</span>
-                                           <i class="fas fa-chevron-down"></i>
-                                    </h3>
-                                </div>
-                                 <div class="card-content" id="{{ key }}-{{key}}">
-                                        {% if key == "missing_mandatory_fields" or key == "missing_optional_fields" %}
-                                            {% if result.deliverables %}
-                                                <ul>
+                                                {% if key == "missing_mandatory_fields" or key == "missing_optional_fields" %}
                                                     {% for deliverable, missing_fields in result.deliverables.items() %}
                                                          <li>
                                                             <span>{{ deliverable }}:</span>
                                                              Missing fields - {{ missing_fields|join(', ') }}
                                                         </li>
                                                     {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                 <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
-                                            {% endif %}
+                                                {% else %}
+                                                     {% for name in result.deliverables %}
+                                                        <li>{{ name }}</li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </ul>
                                         {% else %}
-                                            {% if result.deliverables %}
-                                                <ul>
+                                             <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
+                                        {% endif %}
+                                     </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No analysis results available.</p> {# Handle case where analysis_results itself might be empty #}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Tab Content for Individual Categories -->
+            {% if analysis_results %}
+                {% for key, result in analysis_results.items() %}
+                        <div class="tab-content" id="{{ key }}">
+                            <div class="results-container">
+                                <div class="result-card">
+                                     <div class="card-header" onclick="toggleDetails('{{ key }}-{{key}}')">
+                                        <h3>
+                                             {% if key == "missing_mandatory_fields" %}<i class="fas fa-exclamation-circle"></i> Mandatory Fields Missing
+                                            {% elif key == "missing_optional_fields" %}<i class="fas fa-question-circle"></i> Optional Fields Missing
+                                            {% elif key == "missing_sla" %}<i class="fas fa-file-contract"></i> Missing SLA
+                                            {% elif key == "missing_review_cycles" %}<i class="fas fa-sync-alt"></i> Missing Review Cycles
+                                            {% elif key == "additional_review_cycles_missing_reason" %}<i class="fas fa-comment-dots"></i> Additional Review Reason
+                                            {% elif key == "invalid_approval_date" %}<i class="fas fa-calendar-times"></i> Invalid Approval Date
+                                            {% elif key == "invalid_status" %}<i class="fas fa-times-circle"></i> Invalid Status
+                                            {% elif key == "missing_review_received_date" %}<i class="fas fa-calendar-plus"></i> Missing Review Date
+                                            {% elif key == "invalid_approval_date_order" %}<i class="fas fa-sort-amount-down"></i> Invalid Date Order
+                                            {% elif key == "inconsistent_quick_turnaround_reason" %}<i class="fas fa-exclamation-triangle"></i> Inconsistent Quick Turnaround
+                                            {% elif key == "update_required" %}<i class="fas fa-bell"></i> Update Required
+                                            {% else %}{{ key|replace('_', ' ')|title }}
+                                            {% endif %}
+                                            <span class="count">({{ result.deliverables|length }} found)</span>
+                                        </h3>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                     <div class="card-content" id="{{ key }}-{{key}}">
+                                        {% if result.deliverables %}
+                                            <ul>
+                                                {% if key == "missing_mandatory_fields" or key == "missing_optional_fields" %}
+                                                     {% for deliverable, missing_fields in result.deliverables.items() %}
+                                                         <li>
+                                                            <span>{{ deliverable }}:</span>
+                                                             Missing fields - {{ missing_fields|join(', ') }}
+                                                        </li>
+                                                    {% endfor %}
+                                                {% else %}
                                                     {% for name in result.deliverables %}
                                                         <li>{{ name }}</li>
                                                     {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                 <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
-                                            {% endif %}
+                                                {% endif %}
+                                            </ul>
+                                        {% else %}
+                                             <p class="no-issues"><i class="fas fa-check-circle"></i> No issues found in this category</p>
                                         {% endif %}
-                                 </div>
-                            </div>
-                        </div>
-                   </div>
-            {% endfor %}
+                                     </div>
+                                </div>
+                           </div>
+                       </div>
+                {% endfor %}
+            {% endif %}
         </main>
         <footer>
-            Made with Joy by Akash Patwa (<a href="mailto:akpatwa@deloitte.com">akpatwa@deloitte.com</a>)
+             Made with Joy by Akash Patwa (<a href="mailto:akpatwa@deloitte.com">akpatwa@deloitte.com</a>)
         </footer>
     </div>
     <script>
         const tabs = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
+        const exportButton = document.getElementById('export-button');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
@@ -177,17 +160,47 @@
                     content.classList.remove('active');
                 });
 
-                document.getElementById(tabId).classList.add('active');
+                const activeContent = document.getElementById(tabId);
+                if (activeContent) {
+                    activeContent.classList.add('active');
+                } else {
+                    console.error("Tab content not found for ID:", tabId);
+                }
             });
         });
 
-        function toggleDetails(id) {
-            const cardContent = document.getElementById(id);
-            cardContent.classList.toggle('active');
-             const icon = document.querySelector(`#${id}`).previousElementSibling.querySelector('i');
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
+        function toggleDetails(contentId) {
+            const cardContent = document.getElementById(contentId);
+            const cardHeader = cardContent ? cardContent.previousElementSibling : null;
+            const chevronIcon = cardHeader ? cardHeader.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
+
+            if (cardContent && cardHeader && chevronIcon) {
+                cardContent.classList.toggle('active');
+                cardHeader.classList.toggle('content-active'); // Optional: Add class to header if needed
+
+                // Toggle chevron icon class (alternative method)
+                if (cardContent.classList.contains('active')) {
+                    chevronIcon.classList.remove('fa-chevron-down');
+                    chevronIcon.classList.add('fa-chevron-up');
+                } else {
+                    chevronIcon.classList.remove('fa-chevron-up');
+                    chevronIcon.classList.add('fa-chevron-down');
+                }
+            } else {
+                console.error("Could not find elements for toggleDetails, contentId:", contentId);
+            }
         }
+
+        // Add event listener for the export button
+        if (exportButton) {
+            exportButton.addEventListener('click', function() {
+                // Redirect to the /export endpoint (backend handles the Excel generation)
+                window.location.href = '/export';
+            });
+        } else {
+            console.error("Export button not found");
+        }
+
     </script>
 </body>
 </html>
